@@ -1,0 +1,32 @@
+<script type="text/javascript">
+    RED.nodes.registerType('get-zones', {
+        category: 'genius hub',
+        color: '#a6bbcf',
+        defaults: {
+            service: { value: "", type: "geniushub-service2", required: true },
+            name: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        paletteLabel: "Get Zones",
+        label: function() {
+            return this.name||"Get Zones";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="get-zones">
+    <div class="form-row">
+        <label for="node-input-service"><i class="fa fa-cloud"></i> Service</label>
+        <input type="text" id="node-input-service">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="get-zones">
+    <p>Get the zones</p>
+</script>

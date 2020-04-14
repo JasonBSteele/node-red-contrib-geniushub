@@ -1,0 +1,40 @@
+<script type="text/javascript">
+    RED.nodes.registerType('geniushub2-service', {
+        category: 'config',
+        defaults: {
+            name: { value: "" },
+        },
+        credentials: {
+            token: { type: "text" },
+        },
+        label: function () {
+            return this.name || this.host;
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
+        }
+        //oneditprepare: function () {
+            //$('#node-config-input-secureApiKeyIsQuery-label').hide();
+            //$('#node-config-input-secureApiKeyIsQuery').hide();
+            //var selected = $('#node-config-input-secureApiKeyIsQuery option:selected');
+            //if (!selected.val()) {
+            //    $('#node-config-input-secureApiKeyIsQuery').val(false);
+            //}
+        //}
+    });
+</script>
+
+<script type="text/html" data-template-name="geniushub2-service">
+    <div class="form-row">
+        <label id="node-config-input-token-label" for="node-config-input-token"><i class="fa fa-lock"></i> Token</label>
+        <input type="text" id="node-config-input-token" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="geniushub2-service">
+    <p><b>Token</b>: A token created by you at https://my.geniushub.co.uk/tokens</p>
+</script>
