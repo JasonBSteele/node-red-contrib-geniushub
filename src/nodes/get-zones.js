@@ -1,19 +1,14 @@
+'use strict';
+
 module.exports = function(RED) {
     function GetZones(config) {
         RED.nodes.createNode(this,config);
         this.service = RED.nodes.getNode(config.service);
 
-        //var node = this;
-
-        this.on('input', async msg => {
+        this.on('input', async (msg, send, done) => {
             msg.payload = await this.service.geniusHubClient.getZones();
-                //.then(
-                //    z => z)
-                //.catch(e => console.error("Critical failure: " + e.message));
-
-            //this.payload = msg.payload.toLowerCase();
-            this.send(msg);
-            this.done();
+            send(msg);
+            done();
         });
     }
     RED.nodes.registerType("get-zones", GetZones);
