@@ -3,8 +3,8 @@
         category: 'genius hub',
         color: '#a6bbcf',
         defaults: {
-            service: { value: "", type: "geniushub-service2", required: true },
-            name: {value:""}
+            name: {value:""},
+            service: { value: "", type: "geniushub2-service", required: true }
         },
         inputs:1,
         outputs:1,
@@ -18,12 +18,12 @@
 
 <script type="text/html" data-template-name="get-zones">
     <div class="form-row">
-        <label for="node-input-service"><i class="fa fa-cloud"></i> Service</label>
-        <input type="text" id="node-input-service">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-service"><i class="fa fa-cloud"></i> Account</label>
+        <input type="text" id="node-input-service">
     </div>
 </script>
 
