@@ -1,17 +1,17 @@
 <script type="text/javascript">
     RED.nodes.registerType('override', {
         category: 'genius hub',
-        color: '#a6bbcf',
+        color: '#fdc602',
         defaults: {
             name: {value:""},
             service: { value: "", type: "geniushub2-service", required: true }
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
-        paletteLabel: "Override",
+        icon: "GeniusHub.png",
+        paletteLabel: "override",
         label: function() {
-            return this.name||"Override";
+            return this.name||"override";
         }
     });
 </script>

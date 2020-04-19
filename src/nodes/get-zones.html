@@ -1,17 +1,17 @@
 <script type="text/javascript">
     RED.nodes.registerType('get-zones', {
         category: 'genius hub',
-        color: '#a6bbcf',
+        color: '#fdc602',
         defaults: {
             name: {value:""},
             service: { value: "", type: "geniushub2-service", required: true }
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
-        paletteLabel: "Get Zones",
+        icon: "GeniusHub.png",
+        paletteLabel: "get zones",
         label: function() {
-            return this.name||"Get Zones";
+            return this.name||"get zones";
         }
     });
 </script>
