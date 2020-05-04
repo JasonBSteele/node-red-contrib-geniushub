@@ -4,7 +4,8 @@
         color: '#fdc602',
         defaults: {
             name: {value:""},
-            service: { value: "", type: "geniushub2-service", required: true }
+            service: { value: "", type: "geniushub2-service", required: true },
+            zone: { value: "", required:true }
         },
         inputs:1,
         outputs:1,
@@ -12,6 +13,76 @@
         paletteLabel: "override",
         label: function() {
             return this.name||"override";
+        },
+        oneditprepare: function(){
+            var node = this;
+
+            var getZones = function(){
+                var config = RED.nodes.node($('#node-input-service').val());
+                console.log("config:" + config);
+                if(!config) return;
+
+                $('#node-input-zone').find('option').remove().end();
+                $('<option/>',{
+                  value: "",
+                  text: "Loading..."
+                }).appendTo('#node-input-zone');
+
+                //var bridgeConfig = RED.nodes.node($('#node-input-service option:selected').val());
+                
+                console.log("name:"+config.name);
+                console.log("token:"+config.token);
+
+                $.get('geniushub/zones', {token: config.token})
+                .done(function(data) {
+                    let zones = JSON.parse(data);
+
+                    $('#node-input-zone').find('option').remove().end();
+
+                    $('<option/>',{
+                        value: "",
+                        text: ""
+                    }).appendTo('#node-input-zone');
+
+                    zones.forEach(zone => {
+                        $('<option/>',{
+                        value: zone.id,
+                        text: zone.name
+                        }).appendTo('#node-input-zone');
+                    }); 
+
+                    if (node.zone) {
+                        $('#node-input-zone').val(node.zone);
+                    }
+                })
+                .fail(function()
+                {
+                    RED.notify("Could't get zones", "error");
+                });
+            };
+
+            //if(node.service){
+                getZones();
+            //}
+
+            $('#node-input-zone').change(function(){
+                var zone = $('#node-input-zone option:selected');
+                if(zone.get(0) && zone.val() && zone.val() !== ""){
+                    $('#node-input-name').val(zone.text());
+                }
+            });
+
+            $('#node-input-service').change(function(){
+                var config = $('#node-input-service').val();
+                // console.log("config changed: ", config);
+                // if (config != '_ADD_') {
+                //     getZones(config);
+                getZones();
+                // } else {
+                //     $('#node-input-zone').find('option').remove().end();
+                //     $('#node-input-zone').val("");
+                // }
+            });
         }
     });
 </script>
@@ -24,6 +95,12 @@
     <div class="form-row">
         <label for="node-input-service"><i class="fa fa-cloud"></i> Account</label>
         <input type="text" id="node-input-service">
+    </div>
+    <div class="form-row">
+        <label for="node-input-zone"><i class="fa fa-tag"></i> Zone</label>
+        <select type="text" id="node-input-zone" style="display: inline-block; width: 70%;">
+    		  <option value="empty"></option>
+        </select>
     </div>
 </script>
 
