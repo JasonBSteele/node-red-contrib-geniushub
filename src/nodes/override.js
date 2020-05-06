@@ -16,7 +16,7 @@ module.exports = function(RED) {
                         done(validationMsg);
                     }
                     else {
-                        await this.service.geniusHubClient.override(payload.zoneId, payload.setpoint, payload.duration);
+                        await this.service.geniusHubClient.override(config.zone, payload.setpoint, payload.duration);
                         done();
                     }
                 }
@@ -26,13 +26,12 @@ module.exports = function(RED) {
             });
         }
 
-        validatePayload(payload)
-        {
+        validatePayload(payload) {
             let validationMsg = "";
 
-            if (!Number.isInteger(payload.zoneId)) {
-                validationMsg += `zoneId is not an integer: ${payload.zoneId}\n`; 
-            }
+            // if (!Number.isInteger(payload.zoneId)) {
+            //     validationMsg += `zoneId is not an integer: ${payload.zoneId}\n`; 
+            // }
 
             if (isNaN(payload.setpoint)) {
                 validationMsg += `setpoint is not an number: ${payload.setpoint}\n`; 

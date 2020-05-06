@@ -17,24 +17,18 @@
         oneditprepare: function(){
             var node = this;
 
-            var getZones = function(){
-                var config = RED.nodes.node($('#node-input-service').val());
-                console.log("config:" + config);
-                if(!config) return;
-
+            function getZones() {
                 $('#node-input-zone').find('option').remove().end();
                 $('<option/>',{
                   value: "",
                   text: "Loading..."
                 }).appendTo('#node-input-zone');
 
-                //var bridgeConfig = RED.nodes.node($('#node-input-service option:selected').val());
-                
-                console.log("name:"+config.name);
-                console.log("token:"+config.token);
-
+                var config = RED.nodes.node($('#node-input-service').val());
+                if(!config) return;
+               
                 $.get('geniushub/zones', {token: config.token})
-                .done(function(data) {
+                .done(data => {
                     let zones = JSON.parse(data);
 
                     $('#node-input-zone').find('option').remove().end();
@@ -55,33 +49,21 @@
                         $('#node-input-zone').val(node.zone);
                     }
                 })
-                .fail(function()
-                {
-                    RED.notify("Could't get zones", "error");
+                .fail(function(jqXHR) {
+                    let errorMsg = jqXHR.responseText.length > 0 ? jqXHR.responseText : "Couldn't get zones"
+                    RED.notify(errorMsg, "error");
                 });
             };
 
-            //if(node.service){
-                getZones();
-            //}
-
-            $('#node-input-zone').change(function(){
-                var zone = $('#node-input-zone option:selected');
+            $('#node-input-zone').change(() => {
+                let zone = $('#node-input-zone option:selected');
                 if(zone.get(0) && zone.val() && zone.val() !== ""){
                     $('#node-input-name').val(zone.text());
                 }
             });
 
-            $('#node-input-service').change(function(){
-                var config = $('#node-input-service').val();
-                // console.log("config changed: ", config);
-                // if (config != '_ADD_') {
-                //     getZones(config);
+            $('#node-input-service').change(() => {
                 getZones();
-                // } else {
-                //     $('#node-input-zone').find('option').remove().end();
-                //     $('#node-input-zone').val("");
-                // }
             });
         }
     });

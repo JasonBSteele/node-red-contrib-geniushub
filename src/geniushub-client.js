@@ -23,10 +23,8 @@ module.exports = class GeniusHubClient {
             let response = await this.client.request(options);
             return response.data;
         }
-        catch(e)
-        {
-            if (e.response)
-            {
+        catch(e) {
+            if (e.response) {
                 if (e.response.status == 401) throw "The token is not valid.";
             }
             throw e;
@@ -36,8 +34,7 @@ module.exports = class GeniusHubClient {
     async getZones(type) {
         let zones = await this._callGeniusHub("zones");
         
-        if (type)
-        {
+        if (type) {
             zones = zones.filter(z => z.type === type);
         }
 
@@ -47,8 +44,7 @@ module.exports = class GeniusHubClient {
     async getZonesSummary(type) {
         let zones = await this._callGeniusHub("zones");
 
-        if (type)
-        {
+        if (type) {
             zones = zones.filter(z => z.type === type);
         }
 
