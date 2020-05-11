@@ -11,7 +11,15 @@ module.exports = function(RED) {
             this.on('input', async (msg, send, done) => {
                 try
                 {
-                    msg.payload = await this.service.geniusHubClient.getZones();
+                    if (config.detailed) {
+                        msg.payload = await this.service.geniusHubClient.getZones();
+                    } else {
+                        msg.payload = await this.service.geniusHubClient.getZonesSummary();
+                    }
+
+                    if (config.topic) {
+                        msg.topic = config.topic;
+                    }
                     send(msg);
                     done();
                 }

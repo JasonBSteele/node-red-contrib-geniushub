@@ -1,17 +1,19 @@
 <script type="text/javascript">
     RED.nodes.registerType('get-zones', {
         category: 'genius hub',
-        color: '#fdc602',
+        color: '#FFCC66',
         defaults: {
             name: {value:""},
-            service: { value: "", type: "geniushub2-service", required: true }
+            topic: {value:""},
+            service: { value: "", type: "geniushub2-service", required: true },
+            detailed: { value: false }
         },
         inputs:1,
         outputs:1,
         icon: "GeniusHub.png",
         paletteLabel: "get zones",
         label: function() {
-            return this.name||"get zones";
+            return this.name||this.topic||"get zones";
         }
     });
 </script>
@@ -19,14 +21,37 @@
 <script type="text/html" data-template-name="get-zones">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name"/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
     </div>
     <div class="form-row">
         <label for="node-input-service"><i class="fa fa-cloud"></i> Account</label>
-        <input type="text" id="node-input-service">
+        <input type="text" id="node-input-service"/>
+    </div>
+    </div>
+    <div class="form-row">
+        <label for="node-input-detailed"><i class="fa fa-plus"></i> Detailed</label>
+        <input type="checkbox" id="node-input-detailed"   style="display:inline-block; width:auto; vertical-align:top;">
     </div>
 </script>
 
 <script type="text/html" data-help-name="get-zones">
-    <p>Get the zones</p>
+    <p>Gets information on all of the zones' state</p>
+    
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>payload <span class="property-type">json</span></dt>
+        <dd>An array of each of the zones with details of their state. See References for a link to the schema</dd>
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd>As set in the <b>Properties</b></dd>
+    </dl>
+
+    <h3>References</h3>
+    <ul>
+        <li><a href="https://my.geniushub.co.uk/docs#operation/getZones" target="_blank">https://my.geniushub.co.uk/docs#operation/getZones</a> - the schema of the output <code>payload</code></li>
+        <li><a href="https://github.com/JasonBSteele/node-red-contrib-geniushub" target="_blank">https://github.com/JasonBSteele/node-red-contrib-geniushub</a> - the github repository</li>
+    </ul>
 </script>

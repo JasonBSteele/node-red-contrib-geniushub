@@ -18,40 +18,54 @@ module.exports = function(RED) {
                 this.on('input', async (msg, send, done) => {
                     try {
                         let payload = msg.payload;
-                        let validationMsg = this.validatePayload(zoneType, payload);
+                        let validationMsg = this.validatePayload(zoneType, config.change, payload);
                         if (validationMsg.length > 0) {
                             done(validationMsg);
                         }
                         else {
-                            await this.service.geniusHubClient.override(zoneId, payload.setpoint, payload.duration);
+                            if (config.change) {
+                                await this.service.geniusHubClient.changeOverride(zoneId, payload.setpoint, payload.duration);
+                            } 
+                            else {
+                                await this.service.geniusHubClient.override(zoneId, payload.setpoint, payload.duration);
+                            }
                             done();
                         }
                     }
                     catch(e) {
                         done(e);
                     }
-
                 });
             }
         }
 
-        validatePayload(zoneType, payload) {
+        validatePayload(zoneType, change, payload) {
             let validationMsg = "";
 
-            // if (!Number.isInteger(payload.zoneId)) {
-            //     validationMsg += `zoneId is not an integer: ${payload.zoneId}\n`; 
-            // }
-            
-
-            if (isNaN(payload.setpoint)) {
+            if (payload.setpoint && isNaN(payload.setpoint)) {
                 validationMsg += `setpoint is not an number: ${payload.setpoint}\n`; 
             }
-            else if (zoneType == "on / off"){
+            else if (zoneType == "on / off") {
                 validationMsg += `setpoint must be a 0 or 1 for on/off zones: ${payload.setpoint}\n`;
             }
 
-            if (!Number.isInteger(payload.duration)) {
+            if (payload.duration && !Number.isInteger(payload.duration)) {
                 validationMsg += `duration is not an integer: ${payload.duration}\n`; 
+            }
+
+            if(change) {
+                if (!payload.setpoint && !payload.duration) {
+                    validationMsg += "At least one of setpoint or duration must be specified\n"; 
+                }
+            } 
+            else {
+                if (!payload.setpoint) {
+                    validationMsg += "setpoint must be specified\n";
+                }
+
+                if (!payload.duration) {
+                    validationMsg += "duration must be specified\n";
+                }
             }
 
             return validationMsg;

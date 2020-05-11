@@ -1,20 +1,20 @@
 <script type="text/javascript">
-    RED.nodes.registerType('override', {
+    RED.nodes.registerType('get-zone', {
         category: 'genius hub',
         color: '#FFCC66',
         defaults: {
             name: {value:""},
+            topic: {value:""},
             service: { value: "", type: "geniushub2-service", required: true },
             zone: { value: "", required:true },
-            change: { value: false }
+            detail: { value: "" }
         },
         inputs:1,
         outputs:1,
         icon: "GeniusHub.png",
-        align: "right",
-        paletteLabel: "override",
+        paletteLabel: "get zone",
         label: function() {
-            return this.name||this.topic||"override";
+            return this.name||"get zone";
         },
         oneditprepare: function(){
             var node = this;
@@ -60,7 +60,7 @@
             $('#node-input-zone').change(() => {
                 let zone = $('#node-input-zone option:selected');
                 if(zone.get(0) && zone.val() && zone.val() !== ""){
-                    $('#node-input-name').val(`Override ${zone.text()}`);
+                    $('#node-input-name').val(`Get ${zone.text()}`);
                 }
             });
 
@@ -71,10 +71,14 @@
     });
 </script>
 
-<script type="text/html" data-template-name="override">
+<script type="text/html" data-template-name="get-zone">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
     </div>
     <div class="form-row">
         <label for="node-input-service"><i class="fa fa-cloud"></i> Account</label>
@@ -87,32 +91,46 @@
         </select>
     </div>
     <div class="form-row">
-        <label for="node-input-change"><i class="fa fa-pencil"></i> Change</label>
-        <input type="checkbox" id="node-input-change" style="display:inline-block; width:auto; vertical-align:top;">
+        <label for="node-input-detail"><i class="fa fa-list"></i> Detail</label>
+        <select type="text" id="node-input-detail"  style="display: inline-block; width: 70%;">
+              <option value="FULL">Full</option>
+              <option value="TEMPERATURE">Temperature</option>
+              <option value="SETPOINT">Setpoint</option>
+              <option value="OVERRIDE">Override</option>
+              <option value="MODE">Mode</option>
+              <option value="OCCUPIED">Occupied</option>
+              <option value="TIMER_SCHEDULE">Timer Schedule</option>
+              <option value="FOOTPRINT_SCHEDULE">Footprint Schedule</option>
+        </select>
     </div>
 </script>
 
-<script type="text/html" data-help-name="override">
-    <p>Overrides the zone with the payload provided.</p>
+<script type="text/html" data-help-name="get-zone">
+    <p>Gets information about a zone's state</p>
     
-    <h3>Inputs</h3>
+    <h3>Outputs</h3>
     <dl class="message-properties">
-        <dt>payload
-            <span class="property-type">json</span>
-        </dt>
-        <dd> A JSON object that species the temperature to set (in Celcius) and duration (in seconds):
-            <code>
-                {
-                    setpoint: 21,
-                    duration: 3600
-                }
-            </code> 
-            Either of these (but not both) can be omitted if the <b>Change</b> Property is checked.  
+        <dt>payload <span class="property-type">json</span></dt>
+        <dd>The information returned is dependant on the <b>Detail</b> Property:
+            <ul>
+                <li><b>Full</b> The full zone state, see References for a link to the schema</li>
+                <li><b>Temperature</b> The current temperature for the zone as a real number</li>
+                <li><b>Setpoint</b> The current temperature that the zone is set to as a real number</li>
+                <li><b>Override</b> JSON representing the <code>setpoint</code> and <code>duration</code> of the current override</li>
+                <li><b>Mode</b> The current mode of the zone as one of the following strings: <code>off</code>, <code>timer</code>, <code>override</code>, <code>footprint</code>.</li>
+                <li><b>Occupied</b> A bool which is <code>true></code> if the zone is currently occupied and <code>false</code> if it is not</li>
+                <li><b>Timer Schedule</b> The timer weekly schedule, see References for a link to the schema. <b>Not currently working</b></li>
+                <li><b>Footprint Schedule</b> The weekly schedule that footprint mode has created, see References for a link to the schema</li>
+            </ul>
         </dd>
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd>As set in the <b>Properties</b></dd>
     </dl>
 
     <h3>References</h3>
     <ul>
+        <li><a href="https://my.geniushub.co.uk/docs#operation/getZone" target="_blank">https://my.geniushub.co.uk/docs#operation/getZone</a> - the schema for <b>Full Detail</b></li>
+        <li><a href="https://my.geniushub.co.uk/docs#operation/getZoneTimerSchedule" target="_blank">https://my.geniushub.co.uk/docs#operation/getZoneTimerSchedule</a> - the schemas for <b>Schedule Detail</b></li>
         <li><a href="https://github.com/JasonBSteele/node-red-contrib-geniushub" target="_blank">https://github.com/JasonBSteele/node-red-contrib-geniushub</a> - the github repository</li>
     </ul>
-</script>
+    </script>
