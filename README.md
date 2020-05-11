@@ -12,7 +12,7 @@ You will need a token to use in the configuration of the nodes. You can create o
 ## Nodes
 The following nodes are provided. Let me know through the issues tab if you have any problems with them. Also feel free to suggest adding any additional ones that you need. 
 
-Note that the nodes are not updated in real time from Genius Hub as that would require polling the Genius Hub cloud service as there is no web hook feature for it to provide notifications to us. This could be added but the polling interval would need to be fairly long (probably a minute) to avoid adding significant load to the service.
+Note that the nodes are not updated in real time from Genius Hub as there is no callback or webhook feature for it to provide notifications to us. Polling could be used but the polling interval would need to be fairly long (probably a minute) to avoid adding significant load to the service.
 
 The following nodes are available:
 
