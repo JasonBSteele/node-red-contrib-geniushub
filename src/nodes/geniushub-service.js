@@ -11,7 +11,7 @@ module.exports = function(RED) {
         }
     }
 
-    RED.nodes.registerType('geniushub2-service', GeniusHubServiceNode);
+    RED.nodes.registerType('geniushub-service', GeniusHubServiceNode);
 
     RED.httpAdmin.get('/geniushub/zones', function(req, res, next)
 	{
