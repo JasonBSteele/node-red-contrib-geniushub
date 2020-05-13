@@ -1,24 +1,23 @@
 <script type="text/javascript">
-    RED.nodes.registerType('get-zones', {
+    RED.nodes.registerType('whole-house', {
         category: 'genius hub',
         color: '#FFCC66',
         defaults: {
             name: {value:""},
             topic: {value:""},
             service: { value: "", type: "geniushub-service", required: true },
-            detailed: { value: false }
         },
         inputs:1,
         outputs:1,
         icon: "GeniusHub.png",
-        paletteLabel: "get zones",
+        paletteLabel: "whole house",
         label: function() {
-            return this.name||this.topic||"get zones";
+            return this.name||this.topic||"whole house";
         }
     });
 </script>
 
-<script type="text/html" data-template-name="get-zones">
+<script type="text/html" data-template-name="whole-house">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name"/>
@@ -31,15 +30,10 @@
         <label for="node-input-service"><i class="fa fa-cloud"></i> Account</label>
         <input type="text" id="node-input-service"/>
     </div>
-    </div>
-    <div class="form-row">
-        <label for="node-input-detailed"><i class="fa fa-plus"></i> Detailed</label>
-        <input type="checkbox" id="node-input-detailed"   style="display:inline-block; width:auto; vertical-align:top;">
-    </div>
 </script>
 
-<script type="text/html" data-help-name="get-zones">
-    <p>Gets information on all of the zones' state</p>
+<script type="text/html" data-help-name="whole-house">
+    <p>Has information on all the zones and lets you control the whole house</p>
     
     <h3>Outputs</h3>
     <dl class="message-properties">

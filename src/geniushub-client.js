@@ -4,6 +4,8 @@ const axios = require('axios').default;
 
 module.exports = class GeniusHubClient {
 
+    _wholeHouseZoneId = 0;
+
     constructor(token) {
         this.client =  axios.create({
             baseURL: "https://my.geniushub.co.uk/v1",
@@ -14,6 +16,19 @@ module.exports = class GeniusHubClient {
                     "Content-Type": "application/json"
                 }
             });
+    }
+
+    async _getWholeHouseZoneId() {
+        if (!this._wholeHouseZoneId) {
+            let wholeHouseZones = await this.getZones("manager");
+            if (!wholeHouseZones){
+                throw "Could not find the WholeHouse zone";
+            }
+
+            this._wholeHouseZoneId = wholeHouseZones[0].id;
+        }
+
+        return this._wholeHouseZoneId;
     }
 
     async _callGeniusHub(url, method, data) {
@@ -84,6 +99,12 @@ module.exports = class GeniusHubClient {
     async getZoneSetpoint(zoneId) {
         let zone = await this._callGeniusHub(`zones/${zoneId}/setpoint`, "get");
         return zone;
+    }
+
+    async getWholeHouseTemperature() {
+        let zoneId = await this._getWholeHouseZoneId();
+        let temperature = await this._callGeniusHub(`zones/${zoneId}/temperature`, "get");
+        return temperature;
     }
 
     async getZoneTemperature(zoneId) {
