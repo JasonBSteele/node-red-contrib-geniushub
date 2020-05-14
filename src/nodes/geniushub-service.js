@@ -17,7 +17,7 @@ module.exports = function(RED) {
 	{
         let client = new GeniusHubClient(req.query.token);
 
-        client.getZonesSummary()
+        client.getZones()
         .then(zones => {
 			res.end(JSON.stringify(zones));
 		})

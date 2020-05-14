@@ -1,0 +1,712 @@
+[
+    {
+        "id": "a4643f43.3b10a",
+        "type": "tab",
+        "label": "Genius Hub",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "300fe76f.4220d8",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getZones",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 380,
+        "y": 180,
+        "wires": [
+            [
+                "17530072.74a84"
+            ]
+        ]
+    },
+    {
+        "id": "573ba6e9.f24258",
+        "type": "debug",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 890,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "a70aa380.d6987",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Override: 24C 1hr ",
+        "topic": "override",
+        "payload": "{\"setpoint\":24,\"duration\":3600}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 800,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "290051b3.39597e",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Change Override: 21C",
+        "topic": "override",
+        "payload": "{\"setpoint\":21}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 420,
+        "y": 840,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "1a4dcd29.74a253",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Change Override: 30m",
+        "topic": "override",
+        "payload": "{\"duration\":1800}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 420,
+        "y": 880,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "54e3a6d0.076438",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getTemperature",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 140,
+        "wires": [
+            [
+                "17530072.74a84"
+            ]
+        ]
+    },
+    {
+        "id": "39094af0.150346",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "off",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 60,
+        "wires": [
+            [
+                "17530072.74a84"
+            ]
+        ]
+    },
+    {
+        "id": "169fa0f7.d454af",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "restore",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 100,
+        "wires": [
+            [
+                "17530072.74a84"
+            ]
+        ]
+    },
+    {
+        "id": "17530072.74a84",
+        "type": "geniushub-whole-house",
+        "z": "a4643f43.3b10a",
+        "name": "Whole House",
+        "topic": "",
+        "service": "2cc914b4.d17c2c",
+        "x": 700,
+        "y": 100,
+        "wires": [
+            [
+                "573ba6e9.f24258"
+            ]
+        ]
+    },
+    {
+        "id": "6d899ed9.1cf3d",
+        "type": "geniushub-zone",
+        "z": "a4643f43.3b10a",
+        "name": "Living Room",
+        "service": "2cc914b4.d17c2c",
+        "zone": "8|Living Room|radiator",
+        "x": 690,
+        "y": 540,
+        "wires": [
+            [
+                "a6e4b3ba.44b43"
+            ]
+        ]
+    },
+    {
+        "id": "13c624d3.2547eb",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "off",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4f13b263.695adc",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "timer",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 680,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "e164ca6.79d2838",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "off",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 640,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "f142c560.9cf378",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Default Override",
+        "topic": "override",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 760,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "41e7557e.255efc",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "footprint",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 380,
+        "y": 720,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "22178d26.427362",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getSummary",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 390,
+        "y": 220,
+        "wires": [
+            [
+                "17530072.74a84"
+            ]
+        ]
+    },
+    {
+        "id": "51aa1465.64517c",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getTemperature",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "461eb86c.001308",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getState",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "61d6a4ed.622fac",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getMode",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "4e9f1ed3.5f843",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getSetpoint",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "6554fe94.d5513",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getOverride",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "2c6c653.17a109a",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getOccupied",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 390,
+        "y": 480,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "d6770d6.dd903f",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getTimerSchedule",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 520,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "3fd48261.aa91de",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "getFootprintSchedule",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 420,
+        "y": 560,
+        "wires": [
+            [
+                "6d899ed9.1cf3d"
+            ]
+        ]
+    },
+    {
+        "id": "f2478b81.f67938",
+        "type": "geniushub-zone",
+        "z": "a4643f43.3b10a",
+        "name": "Laundry Switch",
+        "service": "2cc914b4.d17c2c",
+        "zone": "9|Laundry|on / off",
+        "x": 700,
+        "y": 1020,
+        "wires": [
+            [
+                "b11638c0.ef0f58"
+            ]
+        ]
+    },
+    {
+        "id": "d03fc83b.890e88",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Override: 24C 1hr ",
+        "topic": "override",
+        "payload": "{\"setpoint\":24,\"duration\":3600}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 410,
+        "y": 1280,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "ca8405e.937d8f8",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Change Override: 21C",
+        "topic": "override",
+        "payload": "{\"setpoint\":21}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 420,
+        "y": 1320,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "ea75106d.db777",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Change Override: 30m",
+        "topic": "override",
+        "payload": "{\"duration\":1800}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 420,
+        "y": 1100,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "897b7cdf.c343f",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "off",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2646de8b.6ac052",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "timer",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 980,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "e3348298.2fba3",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "off",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 370,
+        "y": 940,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "ac8dfed4.52f28",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Default Override",
+        "topic": "override",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 1060,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "7dcbbc65.6803f4",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "topic": "footprint",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 380,
+        "y": 1020,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "b11638c0.ef0f58",
+        "type": "debug",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 890,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "64206952.96f6f8",
+        "type": "inject",
+        "z": "a4643f43.3b10a",
+        "name": "Override On 1hr",
+        "topic": "override",
+        "payload": "{setpoint:1,duration: 3600}",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 400,
+        "y": 1140,
+        "wires": [
+            [
+                "f2478b81.f67938"
+            ]
+        ]
+    },
+    {
+        "id": "1e312b96.efefd4",
+        "type": "comment",
+        "z": "a4643f43.3b10a",
+        "name": "Invalid for a switch",
+        "info": "",
+        "x": 370,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "a6e4b3ba.44b43",
+        "type": "debug",
+        "z": "a4643f43.3b10a",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 890,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "2cc914b4.d17c2c",
+        "type": "geniushub-service",
+        "z": "",
+        "name": "GeniusHubAuth",
+        "token": "<your token here>"
+    }
+]
