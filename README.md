@@ -44,3 +44,8 @@ This node represents a single Genius Hub zone. It supports the following command
 - According to the documentation at https://my.geniushub.co.uk/docs# `whole house` `getSummary` should return the `type` as well as the `id` and `name` of a zone but unfortunately it doesn't.
 - The `whole house` `getTimerSchedule` command currently return an HTTP error 500 as that is what it gets from the Genius Hub cloud. Can this be confirmed as in issue?
 
+## Example Flows
+
+![Whole House Flow](/examples/whole-house-flow.png)
+
+![Zone Flow](/examples/zone-flow.png)
