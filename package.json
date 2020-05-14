@@ -11,7 +11,8 @@
   "node-red": {
     "nodes": {
       "geniushub-service": "src/nodes/geniushub-service.js",
-      "get-zones": "src/nodes/get-zones.js",
+      "geniushub-whole-house": "src/nodes/whole-house.js",
+      "geniushub-zone": "src/nodes/zone.js",
       "get-zone": "src/nodes/get-zone.js",
       "override": "src/nodes/override.js",
       "set-mode": "src/nodes/set-mode.js"
