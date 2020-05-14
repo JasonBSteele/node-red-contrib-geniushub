@@ -4,7 +4,6 @@
         color: '#FFCC66',
         defaults: {
             name: {value:""},
-            topic: {value:""},
             service: { value: "", type: "geniushub-service", required: true },
         },
         inputs:1,
@@ -12,7 +11,7 @@
         icon: "GeniusHub.png",
         paletteLabel: "whole house",
         label: function() {
-            return this.name||this.topic||"whole house";
+            return this.name||"whole house";
         }
     });
 </script>
@@ -33,19 +32,40 @@
 </script>
 
 <script type="text/html" data-help-name="geniushub-whole-house">
-    <p>Has information on all the zones and lets you control the whole house</p>
+    <p>Query and control the whole house</p>
     
-    <h3>Outputs</h3>
+    <h3>Inputs</h3>
     <dl class="message-properties">
-        <dt>payload <span class="property-type">json</span></dt>
-        <dd>An array of each of the zones with details of their state. See References for a link to the schema</dd>
         <dt>topic <span class="property-type">string</span></dt>
-        <dd>As set in the <b>Properties</b></dd>
+        <dd><code>getZones</code> output the full state of all the zones</dd>
+        <dd><code>getSummary</code> output the zone ids and names</dd>
+        <dd><code>getTemperature</code> output the current temperature</dd>
+        <dd><code>off</code> turn off all the heating zones</dd>
+        <dd><code>restore</code> restore all the zones that were previously turned off by the <code>off</code> command <b>only</b></dd>
     </dl>
 
+    <h3>Outputs</h3>
+    Only the <code>get</code> commands result in an output message.
+    <dl class="message-properties">
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd>The output <code>topic</code> is set to the input <code>topic</code>
+        <dt>payload <span class="property-type">various</span></dt>
+        <dd>The payload is dependant on the <code>get</code> command used:
+            <ul>
+                <li><code>getZones</code> The full zone state of all the zones, see References for a link to the schema</li>
+                <li><code>getSummary</code> The ids and names of all the zones, see References for a link to the schema</li>
+                <li><code>getTemperature</code> The current temperature in Celcius as a real number</li>
+                <li><code>getMode</code> The current mode of the zone as one of the following strings: <code>off</code>, <code>timer</code>, <code>override</code>, <code>footprint</code>.</li>
+                <li><code>getOccupied</code> A bool which is <code>true></code> if the zone is currently occupied and <code>false</code> if it is not</li>
+                <li><code>getTimerSchedule</code> The timer weekly schedule, see References for a link to the schema - <b>not currently working</b></li>
+                <li><code>getFootprintSchedule</code> The weekly schedule that footprint mode has created, see References for a link to the schema</li>
+            </ul>
+        </dd>
+    </dl>
     <h3>References</h3>
     <ul>
-        <li><a href="https://my.geniushub.co.uk/docs#operation/getZones" target="_blank">https://my.geniushub.co.uk/docs#operation/getZones</a> - the schema of the output <code>payload</code></li>
+        <li><a href="https://my.geniushub.co.uk/docs#operation/getZones" target="_blank">https://my.geniushub.co.uk/docs#operation/getZones</a> - the schema for <code>getZones</code></li>
+        <li><a href="https://my.geniushub.co.uk/docs#operation/getZonesSummary" target="_blank">https://my.geniushub.co.uk/docs#operation/getZonesSummary</a> - the schema for <code>getSummary</code></li>
         <li><a href="https://github.com/JasonBSteele/node-red-contrib-geniushub" target="_blank">https://github.com/JasonBSteele/node-red-contrib-geniushub</a> - the github repository</li>
     </ul>
 </script>

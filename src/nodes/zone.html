@@ -85,31 +85,50 @@
 </script>
 
 <script type="text/html" data-help-name="geniushub-zone">
-    <p>Gets information about a zone's state</p>
-    
-    <h3>Outputs</h3>
+    <p>Query and control a Genius Hub zone</p>
+    <h3>Inputs</h3>
     <dl class="message-properties">
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd><code>getState</code> output the full state</dd>
+        <dd><code>getSetpoint</code> output the set temperature</dd>
+        <dd><code>getTemperature</code> output the current temperature</dd>
+        <dd><code>getOverride</code> output the current override settings</dd>
+        <dd><code>getMode</code> output the current mode</dd>
+        <dd><code>getOccupied</code> output whether the zone is occupied</dd>
+        <dd><code>getTimerSchedule</code> output the timer schedule - <b>not currently working</b></dd>
+        <dd><code>getFootprintSchedule</code> output the footprint schedule</dd>
+        
         <dt>payload <span class="property-type">json</span></dt>
-        <dd>The information returned is dependant on the <b>Detail</b> Property:
+        <dd><code>override</code> is the only command that uses a payload. It accepts an object like <code>{"setpoint":21,"duration":3600}</code> 
+            where <code>setpoint</code> is the temperature to set in Celcius and <code>duration</code> 
+            is for how long in seconds. Either can be omitted to update an existing override. If no 
+            payload is given the default override for the zone is used</dd>
+    </dl>
+
+    <h3>Outputs</h3>
+    Only the <code>get</code> commands result in an output message.
+    <dl class="message-properties">
+        <dt>topic <span class="property-type">string</span></dt>
+        <dd>The output <code>topic</code> is set to the input <code>topic</code>
+        <dt>payload <span class="property-type">various</span></dt>
+        <dd>The payload is dependant on the <code>get</code> command used:
             <ul>
-                <li><b>Full</b> The full zone state, see References for a link to the schema</li>
-                <li><b>Temperature</b> The current temperature for the zone as a real number</li>
-                <li><b>Setpoint</b> The current temperature that the zone is set to as a real number</li>
-                <li><b>Override</b> JSON representing the <code>setpoint</code> and <code>duration</code> of the current override</li>
-                <li><b>Mode</b> The current mode of the zone as one of the following strings: <code>off</code>, <code>timer</code>, <code>override</code>, <code>footprint</code>.</li>
-                <li><b>Occupied</b> A bool which is <code>true></code> if the zone is currently occupied and <code>false</code> if it is not</li>
-                <li><b>Timer Schedule</b> The timer weekly schedule, see References for a link to the schema. <b>Not currently working</b></li>
-                <li><b>Footprint Schedule</b> The weekly schedule that footprint mode has created, see References for a link to the schema</li>
+                <li><code>getState</code> The full zone state, see References for a link to the schema</li>
+                <li><code>getTemperature</code> The current temperature in Celcius as a real number</li>
+                <li><code>getSetpoint</code> The current temperature in Celcius as a real number that the zone is set to</li>
+                <li><code>getOverride</code> JSON representing the <code>setpoint</code> and <code>duration</code> of the current override</li>
+                <li><code>getMode</code> The current mode of the zone as one of the following strings: <code>off</code>, <code>timer</code>, <code>override</code>, <code>footprint</code>.</li>
+                <li><code>getOccupied</code> A bool which is <code>true></code> if the zone is currently occupied and <code>false</code> if it is not</li>
+                <li><code>getTimerSchedule</code> The timer weekly schedule, see References for a link to the schema - <b>not currently working</b></li>
+                <li><code>getFootprintSchedule</code> The weekly schedule that footprint mode has created, see References for a link to the schema</li>
             </ul>
         </dd>
-        <dt>topic <span class="property-type">string</span></dt>
-        <dd>As set in the <b>Properties</b></dd>
     </dl>
 
     <h3>References</h3>
     <ul>
-        <li><a href="https://my.geniushub.co.uk/docs#operation/getZone" target="_blank">https://my.geniushub.co.uk/docs#operation/getZone</a> - the schema for <b>Full Detail</b></li>
-        <li><a href="https://my.geniushub.co.uk/docs#operation/getZoneTimerSchedule" target="_blank">https://my.geniushub.co.uk/docs#operation/getZoneTimerSchedule</a> - the schemas for <b>Schedule Detail</b></li>
+        <li><a href="https://my.geniushub.co.uk/docs#operation/getZone" target="_blank">https://my.geniushub.co.uk/docs#operation/getZone</a> - the schema for <code>getState</code></li>
+        <li><a href="https://my.geniushub.co.uk/docs#operation/getZoneTimerSchedule" target="_blank">https://my.geniushub.co.uk/docs#operation/getZoneTimerSchedule</a> - the schemas for <code>getTimerSchedule</code> and <code>getFootprintSchedule</code></li>
         <li><a href="https://github.com/JasonBSteele/node-red-contrib-geniushub" target="_blank">https://github.com/JasonBSteele/node-red-contrib-geniushub</a> - the github repository</li>
     </ul>
     </script>

@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-geniushub",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Automation for Genius Hub",
   "main": "index.js",
   "scripts": {
@@ -12,10 +12,7 @@
     "nodes": {
       "geniushub-service": "src/nodes/geniushub-service.js",
       "geniushub-whole-house": "src/nodes/whole-house.js",
-      "geniushub-zone": "src/nodes/zone.js",
-      "get-zone": "src/nodes/get-zone.js",
-      "override": "src/nodes/override.js",
-      "set-mode": "src/nodes/set-mode.js"
+      "geniushub-zone": "src/nodes/zone.js"
     }
   },
   "dependencies": {
