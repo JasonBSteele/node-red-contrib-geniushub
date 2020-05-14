@@ -10,24 +10,37 @@ Install directly from your Node-RED's setting pallete.
 
 You will need a token to use in the configuration of the nodes. You can create one here [https://my.geniushub.co.uk/tokens](https://my.geniushub.co.uk/tokens) by logging in with you Genius Hub credentials and clicking the `+` button. Note that you can set the Expiration Date to date up to a year from now. You will need to Renew the token when it expires by clicking the Renew button next to it.   
 ## Nodes
-The nodes provided are listed below. Let me know through the issues tab if you have any problems with them. Also feel free to suggest adding any additional ones that you need. 
+Both nodes take a command through the input `topic` and when they output a message they set the output `topic` to the `topic` passed in. The commands are case insensitive.
 
-Note that the nodes are not updated in real time from the Genius Hub cloud service as there is no callback or webhook feature for it to provide notifications to us. Polling could be used but the polling interval would need to be fairly long (probably a minute) to avoid adding significant load to the service.
+### whole house
+This node represents the Genius Hub Whole House. It supports the following commands:
 
-### get zones
-This node will return an array of nodes with detailed information on each node. The schema for the data returned can be found at  [https://my.geniushub.co.uk/docs#tag/zones](https://my.geniushub.co.uk/docs#tag/zones).
+- `getZones` - outputs the full state of all the zones, see https://my.geniushub.co.uk/docs#operation/getZones for the schema of the output `payload`.
+- `getSummary` - outputs the `id` and `name` for each zone, see https://my.geniushub.co.uk/docs#operation/getZonesSummary for the schema of the output `payload`.
+- `getTemperature` - outputs the temperature in Celcius as a real number. 
+- `off` - turns off all the `radiator` zones.
+- `restore` - restores the state of all `radiator` zones that were turned off by the `off` command.
 
-### get zone
-Similarly, this node will return information for a single node. However the zone is specified in the node's properties and the specific information to return can be specified by setting the detail level in the properties.
+### zone
+This node represents a single Genius Hub zone. It supports the following commands:
 
-The detail levels are: `Full`, `Temperature`, `Setpoint`, `Mode`, `Occupied`, `Timer Schedule` and `Footprint Schedule`. Note that `Timer Schedule` currently does not work as I suspect there is an issue with the cloud service that needs to be resolved.
+- `getStatus` - outputs the full state of the zone, see https://my.geniushub.co.uk/docs#operation/getZone for the schema of the output `payload`
+- `getTemperature` - outputs the temperature in Celcius as a real number.
+- `getMode` - outputs the current mode as one of the following strings `off`, `timer`, `footprint`, and `override`.
+- `getSetpoint` - outputs the temperature that the zone has been set to in Celcius as a real number.
+- `getOverride` - outputs the current override, see https://my.geniushub.co.uk/docs#operation/getZoneOverrideSettings for the schema of the output `payload`.
+- `getOccupied` - outputs `true` if the zone is occupied and `false` if it is not.
+- `getTimerSchedule` - outputs the weekly schedule of the timer, see https://my.geniushub.co.uk/docs#operation/getZoneTimerSchedule for the schema of the output `payload`. (Note that this currently returns an error 500).
+- `getFootprintSchedule` - outputs the weekly schedule created by the footprint feature, see https://my.geniushub.co.uk/docs#operation/getZoneFootprintSchedule for the schema of the output `payload`.
+- `off` - set the zone to the `off` mode.
+- `timer` - set the zone to the `timer` mode.
+- `footprint` - set the zone to the `footprint` mode,
+- `override` - set an override for the zone. The `payload` can contain a `setpoint` in Celcius and a `duration` in seconds, If either are omitted the current override will be updated. If there is no `payload` the default override will be set.
 
-### override
-This allows an override to be set for a zone. A `setpoint` temperature in Celcius and `duration` in seconds are specifed through the input `payload`.
+## Known Issues
 
-### set mode
-This allows the mode to be set for a zone. The input `payload` can be set to `off`, `timer`, `override` or `footprint`. 
+- The `whole house` `off` command only turns of zones with the type `radiator`. Please let me know the zone `type` of any other zones that should be turned off by this.
+- The `whole house` `restore` command will only undo what was done by a preceding `off` command. It will not be able to undo an off that has been done through the Genius Hub app or web site. 
+- According to the documentation at https://my.geniushub.co.uk/docs# `whole house` `getSummary` should return the `type` as well as the `id` and `name` of a zone but unfortunately it doesn't.
+- The `whole house` `getTimerSchedule` command currently return an HTTP error 500 as that is what it gets from the Genius Hub cloud. Can this be confirmed as in issue?
 
-If an `override` is active on a zone, `timer` or `footprint` will cancel it.
-
-If `override` is specified the default override for the zone will be activated on it.
