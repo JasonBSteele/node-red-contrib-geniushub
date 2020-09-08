@@ -4,9 +4,8 @@ const axios = require('axios').default;
 
 module.exports = class GeniusHubClient {
 
-    _wholeHouseZoneId = 0;
-
     constructor(token) {
+        this._wholeHouseZoneId = 0;
         this.client =  axios.create({
             baseURL: "https://my.geniushub.co.uk/v1",
             timeout: 10000,
