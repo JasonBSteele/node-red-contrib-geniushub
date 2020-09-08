@@ -3,18 +3,18 @@
 module.exports = function(RED) {
  
     class  WholeHouseNode {
-        
-        _offableTypes = ["radiator"];
-
-        _commands = {
-            GETZONES: Symbol("GETZONES"),
-            GETSUMMARY: Symbol("GETSUMMARY"),
-            GETTEMPERATURE: Symbol("GETTEMPERATURE"),
-            OFF: Symbol("OFF"),
-            RESTORE: Symbol("RESTORE")
-        };
     
         constructor(config) {
+            this._offableTypes = ["radiator"];
+
+            this._commands = {
+                GETZONES: Symbol("GETZONES"),
+                GETSUMMARY: Symbol("GETSUMMARY"),
+                GETTEMPERATURE: Symbol("GETTEMPERATURE"),
+                OFF: Symbol("OFF"),
+                RESTORE: Symbol("RESTORE")
+            };
+            
             RED.nodes.createNode(this, config);
             this.service = RED.nodes.getNode(config.service);
             

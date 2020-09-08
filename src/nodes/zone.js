@@ -4,22 +4,22 @@ module.exports = function(RED) {
 
     class ZoneNode {
         
-        _commands = {
-            GETSTATE: Symbol("GETSTATE"),
-            GETSETPOINT: Symbol("GETSETPOINT"),
-            GETTEMPERATURE: Symbol("GETTEMPERATURE"),
-            GETOVERRIDE: Symbol("GETOVERRIDE"),
-            GETMODE: Symbol("GETMODE"),
-            GETOCCUPIED: Symbol("GETOCCUPIED"),
-            GETTIMERSCHEDULE: Symbol("GETTIMERSCHEDULE"),
-            GETFOOTPRINTSCHEDULE: Symbol("GETFOOTPRINTSCHEDULE"),
-            OFF: Symbol("OFF"),
-            TIMER: Symbol("TIMER"),
-            FOOTPRINT: Symbol("FOOTPRINT"),
-            OVERRIDE: Symbol("OVERRIDE")
-        };
-
         constructor(config) {
+            this._commands = {
+                GETSTATE: Symbol("GETSTATE"),
+                GETSETPOINT: Symbol("GETSETPOINT"),
+                GETTEMPERATURE: Symbol("GETTEMPERATURE"),
+                GETOVERRIDE: Symbol("GETOVERRIDE"),
+                GETMODE: Symbol("GETMODE"),
+                GETOCCUPIED: Symbol("GETOCCUPIED"),
+                GETTIMERSCHEDULE: Symbol("GETTIMERSCHEDULE"),
+                GETFOOTPRINTSCHEDULE: Symbol("GETFOOTPRINTSCHEDULE"),
+                OFF: Symbol("OFF"),
+                TIMER: Symbol("TIMER"),
+                FOOTPRINT: Symbol("FOOTPRINT"),
+                OVERRIDE: Symbol("OVERRIDE")
+            };
+
             RED.nodes.createNode(this,config);
             this.service = RED.nodes.getNode(config.service);
  
